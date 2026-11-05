@@ -5,6 +5,19 @@ PySide6 图形界面 + OpenCV 模板匹配，每个模拟器实例一个后台�
 任务用**可视化流程编辑器**（节点图 DSL）编排——不写一行代码，就能拼出
 等图/点图/判断/循环/遍历/识字/子流程/变量算术 的完整自动化脚本。
 
+<p align="center">
+  <img src="docs/assets/banner.png" width="1280" alt="EmuHive banner">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/PySide6-GUI-informational" alt="PySide6">
+  <img src="https://img.shields.io/badge/OpenCV-template--matching-brightgreen" alt="OpenCV">
+  <img src="https://img.shields.io/badge/Windows%2BLDPlayer4-9cf" alt="Platform">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT"></a>
+  <img src="https://img.shields.io/badge/AI--pair--developed-violet" alt="AI pair developed">
+</p>
+
 > **免责声明**：本项目是个人学习与技术研究成果。对具体游戏/应用使用自动化
 > 可能违反其服务条款，导致封号或其他后果，责任自负；请仅在你拥有充分授权
 > 的场景（自有应用测试、私服/单机、厂商允许的工具链）使用。本仓库**不含任何
