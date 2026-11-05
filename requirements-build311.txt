@@ -1,0 +1,31 @@
+# 路线A·1607 兼容构建环境依赖清单（Python 3.11 专用，别拿它 pip 开发机！）
+#
+# 为什么单独一份：目标机是 Win10 1607（build 14393），Qt 6.5+ 只支持 1809 起，
+# 必须用 PySide6 6.4.3 打包——而 6.4.3 的 wheel 声明 Requires-Python <3.12，
+# 所以构建只能用 Python 3.11.9。开发环境照旧用 requirements.txt（3.12 + 6.11），
+# 两套并行互不干扰，改完代码两边都要跑冒烟验证。
+#
+# 换打包机复现步骤：
+#   1) 装 Python 3.11.9（国内镜像：https://registry.npmmirror.com/-/binary/python/3.11.9/python-3.11.9-amd64.exe）
+#   2) py -3.11 -m venv _build311
+#   3) _build311\Scripts\python.exe -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements-build311.txt
+#   4) QT_QPA_PLATFORM=offscreen 跑 tests/smoke_*.py 全批 → 绿了再打包
+#   5) _build311\Scripts\pyinstaller.exe --noconfirm emuhive.spec
+#
+# 版本钉死的三条血泪原因（2026-10-07 实测）：
+# - PySide6==6.4.3：最后一个支持 Win10 1607 的 Qt 系。它的 shiboken 对
+#   clicked 信号传参方式与 6.11 不同（带关键字默认值的 lambda 会被 0 参调用），
+#   全项目已统一成 lambda _=False 写法，两套 PySide 下都绿。
+# - onnxruntime==1.20.1：1.21+ 在 PySide6 6.4.3 先导入后再 import 会段错误/
+#   DLL 初始化失败（os.add_dll_directory 互踩）。1.20.1 是并存的最高版本，
+#   且 onnxruntime 最低支持 Windows = Win10 1607，识字功能在目标机可用。
+#   ⚠ 装旧 onnxruntime（1.17 等）会把 numpy 悄悄拖到 1.26——装完务必检查
+#   numpy 是否还是下面的 2.4.6。
+# - numpy==2.4.6：2.5.x 无 cp311 wheel；opencv 与开发环境同版保持取图行为一致。
+PySide6==6.4.3
+numpy==2.4.6
+opencv-python==5.0.0.93
+psutil==7.2.2
+rapidocr==3.9.2
+onnxruntime==1.20.1
+pyinstaller==6.22.3

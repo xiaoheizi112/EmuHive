@@ -1,0 +1,16 @@
+# 项目依赖清单：换电脑时执行 `pip install -r requirements.txt` 即可一键装齐
+# 官方源慢就换镜像：pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+# 版本按 2026-09-18 实测环境锁死（== 精确匹配）：升级时逐个改版本号并重跑冒烟，
+# 防止某个包静默升大版本把 OCR 接口/图像行为改掉（rapidocr 2.x→3.x 就换过返回值形态）
+# 图形界面框架（不换 PySide6-Essentials：ui/icons.py 用的 QtSvg 属 Addons 包）
+PySide6==6.11.2
+# 图像识别（模板匹配、截图处理）
+opencv-python==5.0.0.93
+# 数值计算（图片本质是像素数组，numpy 负责高效处理）
+numpy==2.5.1
+# 系统/进程内存读数（仅状态信息窗的「内存」行显示用；缺了不崩，那格显示「读取失败」）
+psutil==7.2.2
+# 文字识别（选区点击节点：找字+认字两段小模型，CPU 推理，模型随包；
+# onnxruntime 不会随 rapidocr 自动装，必须单列——实测踩过）
+rapidocr==3.9.2
+onnxruntime==1.30.0
